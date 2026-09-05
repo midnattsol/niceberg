@@ -3259,6 +3259,7 @@ pub fn iceberg::transaction::Transaction::new(table: &iceberg::table::Table) -> 
 pub fn iceberg::transaction::Transaction::replace_sort_order(&self) -> iceberg::transaction::ReplaceSortOrderAction
 pub fn iceberg::transaction::Transaction::update_location(&self) -> iceberg::transaction::UpdateLocationAction
 pub fn iceberg::transaction::Transaction::update_schema(&self) -> iceberg::transaction::UpdateSchemaAction
+pub fn iceberg::transaction::Transaction::update_snapshot_references(&self) -> iceberg::transaction::UpdateSnapshotReferencesAction
 pub fn iceberg::transaction::Transaction::update_statistics(&self) -> iceberg::transaction::UpdateStatisticsAction
 pub fn iceberg::transaction::Transaction::update_table_properties(&self) -> iceberg::transaction::UpdatePropertiesAction
 pub fn iceberg::transaction::Transaction::upgrade_table_version(&self) -> iceberg::transaction::UpgradeFormatVersionAction
@@ -3275,6 +3276,13 @@ pub struct iceberg::transaction::UpdateSchemaAction
 impl iceberg::transaction::UpdateSchemaAction
 pub fn iceberg::transaction::UpdateSchemaAction::add_column(self, add_column: iceberg::transaction::AddColumn) -> Self
 pub fn iceberg::transaction::UpdateSchemaAction::delete_column(self, name: impl alloc::string::ToString) -> Self
+pub struct iceberg::transaction::UpdateSnapshotReferencesAction
+impl iceberg::transaction::UpdateSnapshotReferencesAction
+pub fn iceberg::transaction::UpdateSnapshotReferencesAction::create_ref(self, name: impl core::convert::Into<alloc::string::String>, reference: iceberg::spec::SnapshotReference) -> iceberg::Result<Self>
+pub fn iceberg::transaction::UpdateSnapshotReferencesAction::fast_forward_branch(self, name: impl core::convert::Into<alloc::string::String>, snapshot_id: i64) -> iceberg::Result<Self>
+pub fn iceberg::transaction::UpdateSnapshotReferencesAction::remove_ref(self, name: impl core::convert::Into<alloc::string::String>) -> iceberg::Result<Self>
+pub fn iceberg::transaction::UpdateSnapshotReferencesAction::rename_ref(self, source: impl core::convert::Into<alloc::string::String>, destination: impl core::convert::Into<alloc::string::String>) -> iceberg::Result<Self>
+pub fn iceberg::transaction::UpdateSnapshotReferencesAction::set_branch_snapshot(self, name: impl core::convert::Into<alloc::string::String>, snapshot_id: i64) -> iceberg::Result<Self>
 pub struct iceberg::transaction::UpdateStatisticsAction
 impl iceberg::transaction::UpdateStatisticsAction
 pub fn iceberg::transaction::UpdateStatisticsAction::remove_statistics(self, snapshot_id: i64) -> Self

@@ -60,6 +60,7 @@ mod sort_order;
 mod update_location;
 mod update_properties;
 mod update_schema;
+mod update_snapshot_references;
 mod update_statistics;
 mod upgrade_format_version;
 
@@ -79,6 +80,7 @@ pub use crate::transaction::sort_order::ReplaceSortOrderAction;
 pub use crate::transaction::update_location::UpdateLocationAction;
 pub use crate::transaction::update_properties::UpdatePropertiesAction;
 pub use crate::transaction::update_schema::UpdateSchemaAction;
+pub use crate::transaction::update_snapshot_references::UpdateSnapshotReferencesAction;
 pub use crate::transaction::update_statistics::UpdateStatisticsAction;
 pub use crate::transaction::upgrade_format_version::UpgradeFormatVersionAction;
 use crate::{Catalog, TableCommit, TableRequirement, TableUpdate};
@@ -164,6 +166,11 @@ impl Transaction {
     /// Update the statistics of table
     pub fn update_statistics(&self) -> UpdateStatisticsAction {
         UpdateStatisticsAction::new()
+    }
+
+    /// Update snapshot branches and tags, bound to this transaction's original table.
+    pub fn update_snapshot_references(&self) -> UpdateSnapshotReferencesAction {
+        UpdateSnapshotReferencesAction::new(&self.table)
     }
 
     /// Expire snapshots from the table metadata.
